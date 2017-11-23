@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 
 class Adventure extends React.Component {
 	constructor(props) {
@@ -77,7 +78,7 @@ const Choice = (props) => {
 	let { name, onClick } = props;
 	return (
 		<li>
-			<button onClick={ onClick }>{ name }</button>
+			<Button onClick={ onClick }>{ name }</Button>
 		</li>
 	);
 }
