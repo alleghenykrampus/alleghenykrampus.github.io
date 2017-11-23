@@ -1,17 +1,17 @@
 {
-  "name": "spa-github-pages",
-  "version": "5.1.0",
+  "name": "alleghenykrampus.github.io",
+  "version": "1.0.0",
   "private": true,
-  "description": "Single Page Apps for GitHub Pages",
+  "description": "GitHub Pages site for The Krampus",
   "scripts": {
     "start": "webpack-dev-server --devtool eval-source-map --history-api-fallback --open",
     "build": "webpack -p"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rafrex/spa-github-pages.git"
+    "url": "git+https://github.com/alleghenykrampus/alleghenykrampus.github.io.git"
   },
-  "author": "Rafael Pedicini <code@rafrex.com>",
+  "author": "Aubrey Collins",
   "license": "MIT",
   "dependencies": {
     "bootstrap": "^3.3.7",
