@@ -1,18 +1,43 @@
 () => {return {
 	title: "Choose Your Own Adventure",
-	variables: {"visitCount": [0,0,0]},
+	variables: {},
 	states: [
-		{text: "First state. Where to go?", choices: [
-			{"name": "Second", "next": 1},
-			{"name": "Third", "next": 2}
+		{
+			id: "default",
+			body: {"title": "Welcome!", "text":"Would you like to play?"},
+			choices: [{"name": "Start", "next": "first"}]
+		},
+		{
+			id: "first",
+			body: {
+				"title": "First state. Where to go?", 
+				"text": "more details..."
+			}, 
+			choices: [
+				{"name": "Second", "next": "second"},
+				{"name": "Third", "next": "third"}
 		]}, 
-		{text: "Second state. Where to go?", choices: [
-			{"name": "First", "next": 0},
-			{"name": "Third", "next": 2}
-		]},
-		{text: "Third state. Where to go?", choices: [
-			{"name": "First", "next": 0},
-			{"name": "Second", "next": 1}
-		]},
+		{
+			id: "second",
+			body: {
+				"title": "This is the second state.",
+				"text": "hello!"
+			},
+			choices: [
+				{"name": "First", "next": "first"},
+				{"name": "Third", "next": "third"}
+			]
+		},
+		{
+			id: "third",
+			body: {
+				"title": "Third state",
+				"text": "You get the idea."
+			},
+			choices: [
+				{"name": "First", "next": "first"},
+				{"name": "Second", "next": "third"}
+			]
+		},
 	]
 }}
