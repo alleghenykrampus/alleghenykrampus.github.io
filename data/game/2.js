@@ -136,7 +136,7 @@
 						{culprit: {
 							name: "butler",
 							pronoun: "him",
-							text: "Everyone is stunned. The butler looks scoffs. \"This is bullshit,\" he says. \"I hated that old man's guts, but I live by the Butler's Code: to only kill in a fair duel.\""
+							text: "Everyone is stunned. The butler scoffs. \"This is bullshit,\" he says. \"I hated that old man's guts, but I live by the Butler's Code: to only kill in a fair duel.\""
 							}})},
 			   	{type:"speech",name:"...the drifter.", next:"arrest4",action: (vars) => Object.assign({}, vars, 
 						{culprit: {
