@@ -3,7 +3,7 @@
 	const visit = (vars) => Object.assign({}, vars, {hasVisited: true});
 	return {
 	title: "Can you solve the murder?",
-	variables: {detective:0, hasVisited:false},
+	variables: {detective:0, hasVisited:false, culprit:{}},
 	states: [
 		{
 			id: "default",
@@ -126,11 +126,60 @@
 				image: rootURL + "foyer.jpg",
 			},
 			choices: [
-				{type:"speech",name:"...the maid."}, 
-				{type:"speech",name:"...the butler."},
-			   	{type:"speech",name:"...the drifter."}, 
-				{type:"speech",name:"...myself."},
+				{type:"speech",name:"...the maid.", next:"arrest4", action: (vars) => Object.assign({}, vars, 
+						{culprit: {
+							name: "maid",
+							pronoun: "her",
+							text: "Everyone is stunned. The butler faints. \n The friendly maid? She was always so kind, even when Mr. Bryant made her give him a sponge bath. The chief nudges you. \"Are you sure about this?\" \n The maid looks very confused. \"Is this a joke?\" she asks. \"I haven't killed anyone since Vietnam.\""
+							}})}, 
+				{type:"speech",name:"...the butler.", next:"arrest4",action: (vars) => Object.assign({}, vars, 
+						{culprit: {
+							name: "butler",
+							pronoun: "him",
+							text: "Everyone is stunned. The butler looks scoffs. \"This is bullshit,\" he says. \"I hated that old man's guts, but I live by the Butler's Code: to only kill in a fair duel.\""
+							}})},
+			   	{type:"speech",name:"...the drifter.", next:"arrest4",action: (vars) => Object.assign({}, vars, 
+						{culprit: {
+							name: "drifter",
+							pronoun: "him",
+							text: "Nobody is really surprised --- I mean, that guy is covered in blood. \n The drifter does not react.",
+							}})}, 
+				{type:"speech",name:"...myself.", next:"arrest4", action: (vars) => {
+						let text = (vars.detective === 1) ? '\"The world\'s greatest detective is supposed to solve murders, not commit them.\"' : '\"Why did I hire a pastry chef to solve this case?\"';
+						return Object.assign({}, vars, 
+						{culprit: {
+							name: "chief",
+							pronoun: "me",
+							text: "Well, this sure is a twist. \n \"This is ridiculous,\" sighs the chief. " + text
+						}})}},
 			],
+		},
+		{
+			id: "arrest4",
+			body: (vars) => {
+				return {
+					image: rootURL + vars.culprit.name + ".jpg",
+					text: vars.culprit.text,
+			}},
+			choices: (vars) => [{type:"speech", name: "You can tell it to the judge. Take " + vars.culprit.pronoun + " away, officer!", next: (vars.culprit.name === 'drifter') ? "arrest_win" : "arrest_fail"}]
+		},
+		{
+			id: "arrest_win",
+			end: "win",
+			body: {
+				image: rootURL + "court.jpg",
+				text: "On the day of the big trial, the jury doesn't even need to step out of the courtroom to deliberate. \"Your Honor, it is very obvious that this blood-soaked drifter killed Cornelius C. Bryant,\" says juror number one. The drifter is sentenced to a lifetime of Sisyphysean labor. \n Ahhhh, justice. It feels good to have cracked the case. Mr. Bryant\'s family and friends would no doubt give you a pat on the back right now, if only he had had any."
+			},
+			choices: [],
+		},
+		{
+			id: "arrest_fail",
+			end: "lose",
+			body: {
+				image: rootURL + "court.jpg",
+				text: "After eight years of rotting in a jail cell, you remember that the Constitution unfortunately grants the suspect the right to a trial. \n You stroll into the courtroom, and the judge scowls at you. \"This is who you arrested? Really?\" she asks. \"You really dropped the ball on this one. I'll see to it that you never work as a detective again.\""
+			},
+			choices: [],
 		},
 		{
 			id: "maid",
