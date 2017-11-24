@@ -9,6 +9,7 @@ class Adventure extends React.Component {
 		let initial = props.data.states.find(s => s.id === "default") || props.data.states[0] || {};
 		this.state = {
 			show: true,
+			end: null,
 			current: initial, 
 			variables: (initial.action) ? initial.action(vars) : vars
 		};
@@ -22,19 +23,21 @@ class Adventure extends React.Component {
 		let to = choice.next;
 		to = (typeof to === "function") ? to(vars) : to;
 		let next = this.props.data.states.find(s => s.id === to);
+		let end = next.end;
 		if (choice.action) {
 			vars = choice.action(vars);
 		}
 		this.setState({
 					variables: vars,
 					show: false,
+					end: end,
 				},()=>{console.log(this.state.variables)}
 		);
 		setTimeout(function() {this.setState({show: true, current: next, variables:vars})}.bind(this),500);
 	}
 
 	render() {
-		const { current, show, variables} = this.state;
+		const { current, show, end, variables} = this.state;
 		const { title } = this.props.data;
 		console.log(current);
 		let body = current.body;
@@ -46,7 +49,7 @@ class Adventure extends React.Component {
 			<Col xs={12} sm={8} smOffset={2}>
 				<h1>{ title }</h1>
 				<Fade in={show}>
-				<Panel>
+				<Panel bsStyle={end === "lose" ? "lose" : "default"}>
 				<div>
 					<Row>
 						<Prompt body={body} vars={variables}/>
