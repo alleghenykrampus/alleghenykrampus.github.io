@@ -58,7 +58,7 @@ class Adventure extends React.Component {
 								key={i}
 								name={c.name}
 								type={c.type}
-								onClick={() => this.transition(c)}
+								onClick={() => (c.next) ? this.transition(c) : null}
 							/>
 						)}
 						</ul>

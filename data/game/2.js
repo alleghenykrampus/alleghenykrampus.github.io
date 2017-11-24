@@ -34,15 +34,18 @@
 			choices: [
 				{
 					name: "Interrogate the maid",
-					next: "maid"
+					next: "maid",
+					action: visit
 				},
 				{
 					name: "Interrogate the butler",
-					next: "butler"
+					next: "butler",
+					action: visit
 				},
 				{
 					name: "Interrogate the drifter",
-					next: "drifter"
+					next: "drifter",
+					action: visit
 				},
 				{
 					name: "Arrest the perpetrator",
@@ -103,10 +106,31 @@
 		{
 			id: "arrest",
 			body: {
-				text: "The suspects and the chief sit down in front of the fireplace, anxiously awaiting your big reveal.",
+				text: "The suspects and the chief gather in front of the fireplace, anxiously awaiting your big reveal.",
 				image: rootURL + "foyer.jpg"
 			},
-			choices: [],
+			choices: [{type:"speech", name:"After a meticulous investigation, I have determined that the killer must be...", next: "arrest2"}],
+		},
+		{
+			id: "arrest2",
+			body: {
+				image: rootURL + "foyer.jpg",
+				text: "Everyone is on the edge of their seats."
+			},
+			choices: [{name:"Continue the dramatic pause", next:"arrest3"}]
+		},
+		{
+			id: "arrest3",
+			body: {
+				text: "After nearly three minutes of silent anticipation, you sense that your audience is getting impatient.",
+				image: rootURL + "foyer.jpg",
+			},
+			choices: [
+				{type:"speech",name:"...the maid."}, 
+				{type:"speech",name:"...the butler."},
+			   	{type:"speech",name:"...the drifter."}, 
+				{type:"speech",name:"...myself."},
+			],
 		},
 		{
 			id: "maid",
@@ -124,9 +148,55 @@
 				{
 					type: "speech",
 					name: "Do you know who did it?",
-					next: "maid2",
+				},
+				{
+					name: "Get up in leave in the middle of the conversation, like an inconsiderate jerk.",
+					next: "foyer"
 				}
 			]
+		},
+		{
+			id: "butler",
+			body: {
+				image: rootURL + "butler.jpg",
+				text: '"You\'re the detective, right? You\'d better solve this case pronto. Not because I care about that old man, or anything --- I just wanna get out of here so I can ride my chopper on the open road, screaming at the top of my lungs while going a hundred miles per hour." \n Boy, this butler sure is cool and aloof.'
+			},
+			choices: [
+				{type: "speech", name: "Maybe you should keep your mouth closed while riding. You don't want to choke on a bug.", next: "butler_bug"},
+				{type: "speech", name: "You seem like a nice boy. I'll leave you alone now so you can do your bicycle ride.", next: "foyer"}
+			]
+		},
+		{
+			id: "butler_bug",
+			body: {
+				image: rootURL + "butler.jpg",
+				text: '"So what if I do, punk?" he snarls.'
+			},
+			choices: [{name:"Today is not a day for death.", next:"butler"}, {name:"Get all up in his face.", next:"butler_fight"}]
+		},
+		{
+			id: "butler_fight",
+			body: {
+				image: rootURL + "fist.jpg",
+				text: "This is not a butler you want to mess around with. As soon as you step into his personal space, he throws out a strong right hook.",
+			},
+			choices: [{name:"Dodge the punch"}, {name:"Let the punch hit you", next:"butler_fight_respect"}, {name:"Pull out your gun"}]
+		},
+		{
+			id: "butler_fight_respect",
+			body: {
+				image: rootURL + "pain.jpg",
+				text: 'You see the punch coming, but opt to take it right in the gut. God, it hurts. You pray that you won\'t suffer the same fate as your idol, Harry Houdini. \n The butler is impressed. "It takes some guts to not move out of the way of a clearly telegraphed punch," he says. "I can respect that."'
+			},
+			choices: [{name:"Keep talking to the butler.", next: "butler"}, {name:"Excuse yourself so that you can go cry without embarrassment", next: "foyer"}]
+		},
+		{
+			id: "drifter",
+			body: {
+				image: rootURL + "killer.jpg",
+				text: "You approach the drifter. He does not react."
+			},
+			choices: [{name:"Leave this weirdo alone.", next:"foyer"}]
 		}
 	]
 }}
