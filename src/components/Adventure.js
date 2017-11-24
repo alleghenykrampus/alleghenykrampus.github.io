@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Glyphicon, Fade, Panel, Row, Col } from 'react-bootstrap';
+import { Button, Glyphicon, Fade, Panel, Row, Col, Image, Thumbnail } from 'react-bootstrap';
 import '../styles/adventure.css';
 
 class Adventure extends React.Component {
@@ -13,11 +13,15 @@ class Adventure extends React.Component {
 			variables: (initial.action) ? initial.action(vars) : vars
 		};
 		console.log(this.state.variables);
+		this.transition = this.transition.bind(this);
 	}
 
 	transition(choice) {
-		let next = this.props.data.states.find(s => s.id === choice.next);
+		console.log(choice);
 		let vars = this.state.variables;
+		let to = choice.next;
+		to = (typeof to === "function") ? to(vars) : to;
+		let next = this.props.data.states.find(s => s.id === to);
 		if (choice.action) {
 			vars = choice.action(vars);
 		}
@@ -32,18 +36,24 @@ class Adventure extends React.Component {
 	render() {
 		const { current, show, variables} = this.state;
 		const { title } = this.props.data;
+		console.log(current);
+		let body = current.body;
+		body = (typeof body === "function") ? body(variables) : body;
+		let choices = current.choices;
+		choices = (typeof choices === "function") ? choices(variables) : choices;
+		console.log(choices);
 		return (
-			<Col xs={8} xsOffset={2}>
+			<Col xs={12} sm={8} smOffset={2}>
 				<h1>{ title }</h1>
 				<Fade in={show}>
 				<Panel>
 				<div>
 					<Row>
-						<Prompt body={current.body} vars={variables}/>
+						<Prompt body={body} vars={variables}/>
 					</Row>
 					<Row>
 						<ul className = "choices">
-						{current.choices.map((c,i) =>
+						{choices.map((c,i) =>
 							<Choice
 								key={i}
 								name={c.name}
@@ -87,11 +97,13 @@ export class AdventureHandler extends React.Component {
 }
 
 const Prompt = (props) => {
-	let [text, vars] = [props.body.text, props.vars];
-	console.log(props);
+	let [text, image, vars] = [props.body.text, props.body.image, props.vars];
+	text = (typeof text === "function") ? text(vars) : text;
+	let paragraphs = text.split("\n").map((pg, i) => <p key={i}>{pg}</p>);
 	return (
 		<Col xs={12}>
-			{ (typeof text === "function") ? text(vars) : text }
+			{ image ? <Thumbnail src={image} bsClass="thumbnail prompt-thumbnail" responsive="true"/> : "" }
+			{ paragraphs }
 		</Col>
 	);
 }
@@ -101,7 +113,7 @@ const Choice = (props) => {
 	if (type === "speech") {
 		return (
 			<li>
-				<Button bsClass="bubble" bsStyle="primary" onClick={ onclick }>{ name }</Button>
+				<Button bsClass="bubble" bsStyle="primary" onClick={ onClick }>{ name }</Button>
 			</li>
 		);
 	}

@@ -2,6 +2,12 @@
 	white-space: normal !important;
 }
 
+.btn-default:focus {
+    color: #333 !important;
+	background-color: #fff !important;
+	border-color: #ccc !important;
+}
+
 .bubble {
 	position: relative;
 	border-radius: .4em;
@@ -49,4 +55,8 @@ ul.choices {
 
 ul.choices > li {
 	margin-top: 1em;
+}
+
+.thumbnail.prompt-thumbnail > img {
+	max-height: 400px;
 }
