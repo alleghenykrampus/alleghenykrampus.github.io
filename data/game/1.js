@@ -5,7 +5,7 @@
 		{
 			id: "default",
 			body: {"title": "Welcome!", "text":"Would you like to play?"},
-			choices: [{"name": "Start", "next": "first"}]
+			choices: [{"name": "Start", "next": "first"}, {"name":"I am shouting into the void", "type":"speech", "next":"first"}]
 		},
 		{
 			id: "first",
@@ -15,7 +15,8 @@
 			}, 
 			choices: [
 				{"name": "Second", "next": "second"},
-				{"name": "Third", "next": "third"}
+				{"name": "Third", "next": "third"},
+				{"name": "here is a very long button name, for the sake of determining whether or not the text in here will overflow properly, which we need to do in order to be responsive", "next": "second"},
 		]}, 
 		{
 			id: "second",

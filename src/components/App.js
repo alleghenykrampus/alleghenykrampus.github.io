@@ -8,17 +8,22 @@ import Breadcrumbs from './Breadcrumbs';
 import Navbar from './Navbar';
 import { AdventureHandler } from './Adventure';
 import s from '../styles/app.style';
+import { Grid, Row } from 'react-bootstrap';
 
 export default function App() {
   return (
 	<div>
 		<Navbar />
+	<Grid>
+	<Row>
      <Switch>
         <Route exact path="/" component={Home} />
 		<Route path="/game/:id" component={AdventureHandler}/>
         <Route path="/example" component={ExampleComponent} />
         <Route component={PageNotFound} />
       </Switch>
+	</Row>
+	</Grid>
     </div>
   );
 }

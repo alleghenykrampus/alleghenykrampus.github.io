@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Glyphicon, Fade } from 'react-bootstrap';
+import { Button, Glyphicon, Fade, Panel, Row, Col } from 'react-bootstrap';
+import '../styles/adventure.css';
 
 class Adventure extends React.Component {
 	constructor(props) {
@@ -15,40 +16,47 @@ class Adventure extends React.Component {
 	}
 
 	transition(choice) {
-		console.log(choice);
-		const next = this.props.data.states.find(s => s.id === choice.next);
+		let next = this.props.data.states.find(s => s.id === choice.next);
 		let vars = this.state.variables;
-		console.log(vars,next);
-		if (next.action) {
-			vars = next.action(vars);
+		if (choice.action) {
+			vars = choice.action(vars);
 		}
 		this.setState({
 					variables: vars,
 					show: false,
 				},()=>{console.log(this.state.variables)}
 		);
-		setTimeout(function() {this.setState({show: true, current: next})}.bind(this),500);
+		setTimeout(function() {this.setState({show: true, current: next, variables:vars})}.bind(this),500);
 	}
 
 	render() {
-		const { current, show } = this.state;
+		const { current, show, variables} = this.state;
 		const { title } = this.props.data;
 		return (
-			<div>
+			<Col xs={8} xsOffset={2}>
 				<h1>{ title }</h1>
 				<Fade in={show}>
+				<Panel>
 				<div>
-					<Prompt body={current.body} />
-					{current.choices.map((c,i) =>
-						<Choice
-							key={i}
-							name={c.name}
-							onClick={() => this.transition(c)}
-						/> 
-					)}
+					<Row>
+						<Prompt body={current.body} vars={variables}/>
+					</Row>
+					<Row>
+						<ul className = "choices">
+						{current.choices.map((c,i) =>
+							<Choice
+								key={i}
+								name={c.name}
+								type={c.type}
+								onClick={() => this.transition(c)}
+							/>
+						)}
+						</ul>
+					</Row>
 				</div>
+				</Panel>
 				</Fade>
-			</div>
+			</Col>
 		)
 	}
 }
@@ -79,22 +87,31 @@ export class AdventureHandler extends React.Component {
 }
 
 const Prompt = (props) => {
-	let { body } = props;
+	let [text, vars] = [props.body.text, props.vars];
+	console.log(props);
 	return (
-		<div>
-			<h2>{ body.title }</h2>
-			{ body.text }
-		</div>
+		<Col xs={12}>
+			{ (typeof text === "function") ? text(vars) : text }
+		</Col>
 	);
 }
 
 const Choice = (props) => {
-	let { name, onClick } = props;
+	let { name, onClick, type } = props;
+	if (type === "speech") {
+		return (
+			<li>
+				<Button bsClass="bubble" bsStyle="primary" onClick={ onclick }>{ name }</Button>
+			</li>
+		);
+	}
 	return (
-		<Button onClick={ onClick }>
-			{ name + " "}
-			<Glyphicon glyph={"chevron-right"} />
-		</Button>
+		<li>
+			<Button onClick={ onClick }>
+				{ name + " "}
+				<Glyphicon glyph={"chevron-right"} />
+			</Button>
+		</li>
 	);
 }
 
