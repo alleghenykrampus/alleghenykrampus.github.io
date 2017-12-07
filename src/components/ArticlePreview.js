@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Col, Thumbnail, Label } from 'react-bootstrap';
 
 class ArticlePreview extends React.Component {
@@ -14,9 +15,9 @@ class ArticlePreview extends React.Component {
 					{ article.tags.map((t,j) => (
 						<a href={"/tag/" + t} key={j}><Label bsStyle="info">{t}</Label></a>
 					))}
-					<a href="#" onClick={redirect}>
+					<Link to={ article.url }>
 						<h3>{ article.title }</h3>
-					</a>
+					</Link>
 				</Thumbnail>
 			</Col>
 		);
