@@ -1,0 +1,4 @@
+div.media-body > h4 {
+	display: inline-block;
+	margin-right: 0.5em;
+}

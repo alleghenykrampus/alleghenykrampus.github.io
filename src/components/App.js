@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import PageNotFound from './PageNotFound';
 import { AdventureHandler } from './Adventure';
 import Navbar from './Navbar';
+import Home from './Home';
 import { Grid, Row } from 'react-bootstrap';
 
 export default function App() {
@@ -13,7 +14,7 @@ export default function App() {
 		<Grid>
 			<Row>
      			<Switch>
-					<Route exact path="/" component={PageNotFound} />
+					<Route exact path="/" component={Home} />
 					<Route path="/game/:id" component={AdventureHandler}/>
 					<Route component={PageNotFound} />
 				</Switch>
