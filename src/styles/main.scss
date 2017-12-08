@@ -1,0 +1,19 @@
+$icon-font-path: "~/bootstrap-sass/assets/fonts/bootstrap";
+
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+button:focus, button.btn:focus {
+	outline: none;
+}
+
+div.feature-panel-wrapper {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+div.feature-panel-wrapper > .panel {
+	background: rgba(255,255,255,0.85);
+	padding-right: 100px;
+	border-radius: 0px;
+}
