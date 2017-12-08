@@ -19,7 +19,7 @@ class ArticlePreview extends React.Component {
 						<h4>{ article.title }</h4>
 					</Link>
 					{ article.tags.map((t,j) => (
-						<Link to={"/tag/" + t} key={j}><Label bsStyle="info">{t}</Label></Link>
+						<Link to={"/tag/" + t} key={j}><Label bsStyle="primary">{t}</Label></Link>
 					))}
 				</Thumbnail>
 			</Col>
@@ -42,7 +42,7 @@ class ArticlePreview extends React.Component {
 						<h2>{ article.title }</h2>
 					</Link>
 					{ article.tags.map((t,j) => (
-						<Link to={"/tag/" + t} key={j}><Label bsStyle="info">{t}</Label></Link>
+						<Link to={"/tag/" + t} key={j}><Label bsStyle="primary">{t}</Label></Link>
 					))}
 				</Panel>
 				</div>

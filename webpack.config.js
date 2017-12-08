@@ -12,6 +12,7 @@ module.exports = {
     rules: [
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
 	  { test: /\.css$/, loaders: ['style-loader', 'css-loader']},
+	  { test: /\.scss$/, loaders: ['style-loader', 'css-loader', 'sass-loader'] },
 	  { test: /\.png$/, loader: "url-loader?limit=10000" },
 	  { test: /\.jpg$/, loader: "file-loader" },
 	  {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff'},
