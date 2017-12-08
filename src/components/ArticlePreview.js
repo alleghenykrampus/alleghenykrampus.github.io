@@ -7,6 +7,7 @@ class ArticlePreview extends React.Component {
 		super(props);
 		this.medium = this.medium.bind(this);
 		this.feature = this.feature.bind(this);
+		this.tags = this.tags.bind(this);
 		this.state = {size: {"medium": this.medium, "feature": this.feature}};
 	}
 
@@ -18,9 +19,7 @@ class ArticlePreview extends React.Component {
 					<Link to={ article.url }>
 						<h4>{ article.title }</h4>
 					</Link>
-					{ article.tags.map((t,j) => (
-						<Link to={"/tag/" + t} key={j}><Label bsStyle="primary">{t}</Label></Link>
-					))}
+					{ this.tags() }
 				</Thumbnail>
 			</Col>
 		);
@@ -41,15 +40,20 @@ class ArticlePreview extends React.Component {
 					<Link to={ article.url }>
 						<h2>{ article.title }</h2>
 					</Link>
-					{ article.tags.map((t,j) => (
-						<Link to={"/tag/" + t} key={j}><Label bsStyle="primary">{t}</Label></Link>
-					))}
+					{ this.tags() }
 				</Panel>
 				</div>
 			</Row>
 			</div>
 			</Col>
 		);
+	}
+
+	tags() {
+		let { article } = this.props;
+		return article.tags.map((t,i) => (
+			<span className={"tag tag-" + t}><Link to={"/tag/" + t}>{t}</Link></span>			
+		));
 	}
 
 	render() {

@@ -1,0 +1,40 @@
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/labels";
+
+div.feature-panel-wrapper {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+div.feature-panel-wrapper > .panel {
+	background: rgba(255,255,255,0.85);
+	padding-right: 100px;
+	border-radius: 0px;
+}
+
+@mixin tag($bg, $text) {
+	@extend .label;
+
+	background: $bg;
+
+	&:hover {
+		background: transparentize($bg, 0.35);
+	}
+
+	a {
+		color: $text;
+		
+		&:hover {
+			text-decoration:none;
+		}
+	}
+
+}
+
+.tag {
+	@include tag($gray-light, #fff);
+}
+
+.tag-game {
+	@include tag($brand-primary, #fff);
+}
