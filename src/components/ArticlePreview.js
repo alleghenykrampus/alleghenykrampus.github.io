@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Col, Thumbnail, Label, Panel, Row } from 'react-bootstrap';
 
 class ArticlePreview extends React.Component {
@@ -8,7 +8,7 @@ class ArticlePreview extends React.Component {
 		this.medium = this.medium.bind(this);
 		this.feature = this.feature.bind(this);
 		this.tags = this.tags.bind(this);
-		this.state = {size: {"medium": this.medium, "feature": this.feature}};
+		this.state = {size: {"medium": this.medium, "feature": this.feature}, redirect: false};
 	}
 
 	medium() {
@@ -50,14 +50,20 @@ class ArticlePreview extends React.Component {
 	tags() {
 		let { article } = this.props;
 		return article.tags.map((t,i) => (
-			<span className={"tag tag-" + t}><Link to={"/tag/" + t}>{t}</Link></span>			
+			<span className={"tag tag-" + t} key={i}><Link to={"/tag/" + t}>{t}</Link></span>			
 		));
 	}
 
 	render() {
+		let { article } = this.props;
+		let redirect = this.state.redirect;
+		if (redirect) {
+			this.setState({redirect: false});
+			return <Redirect to={ article.url } push/>
+		}
 		let size = this.props.size || "medium";
 		let renderSize = this.state.size[size];
-		return renderSize();
+		return (<div onClick={() => this.setState({redirect: true})}>{ renderSize() }</div>);
 	}
 }
 
