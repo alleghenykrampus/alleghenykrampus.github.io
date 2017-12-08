@@ -15,7 +15,7 @@ class ArticlePreview extends React.Component {
 		let { article } = this.props;
 		return (
 			<Col xs={12} sm={4}>
-				<Thumbnail src="http://placeimg.com/270/150/any" alt="image">
+				<Thumbnail bsClass="article-thumbnail" src="http://placeimg.com/270/150/any" alt="image">
 					<Link to={ article.url }>
 						<h4>{ article.title }</h4>
 					</Link>
@@ -29,14 +29,12 @@ class ArticlePreview extends React.Component {
 		let { article } = this.props;
 		return (
 			<Col xs={12}>
-			<div className="jumbotron" style={{
+			<div className="feature" style={{
 				background: "url('https://placeimg.com/900/500/any')",
-				height: 300,
-				position: "relative",
 			}}>
 			<Row>
 				<div className="feature-panel-wrapper">
-				<Panel>
+				<Panel bsClass="feature-panel">
 					<Link to={ article.url }>
 						<h2>{ article.title }</h2>
 					</Link>

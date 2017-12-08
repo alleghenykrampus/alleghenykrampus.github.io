@@ -1,16 +1,6 @@
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/labels";
-
-div.feature-panel-wrapper {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-}
-
-div.feature-panel-wrapper > .panel {
-	background: rgba(255,255,255,0.85);
-	padding-right: 100px;
-	border-radius: 0px;
-}
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/panels";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/thumbnails";
 
 @mixin tag($bg, $text) {
 	@extend .label;
@@ -27,14 +17,67 @@ div.feature-panel-wrapper > .panel {
 		&:hover {
 			text-decoration:none;
 		}
+
+		&:before {
+			content: "#";
+		}
 	}
 
 }
 
+@mixin preview_hover() {
+	&:hover {
+		&, div.feature-panel-wrapper > div.feature-panel {
+			cursor: pointer;
+			background: $gray-lighter;
+		}
+
+		.caption, div > div > .feature-panel-body {
+			h1, h2, h3, h4, h5, h6 {
+				color: $text-color;
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+.feature {
+	@include preview_hover;
+	height: 300px;
+	position: relative;
+
+	.row {
+		.feature-panel-wrapper {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+
+			.feature-panel {
+				@extend .panel;
+				background: transparentize($panel-bg, 0.15);
+				padding-right: 100px;
+				border-radius: 0px;
+
+				.feature-panel-body {
+					@extend .panel-body;
+				}
+			}	
+		}
+	}
+}
+
+.article-thumbnail {
+	@extend .thumbnail;
+	@include preview_hover;
+	border: none;
+	
+	
+}
+
 .tag {
-	@include tag($gray-light, #fff);
+	@include tag(lighten($gray-light, 25%), #fff);
 }
 
 .tag-game {
-	@include tag($brand-primary, #fff);
+	@include tag(lighten($brand-info, 5%), #fff);
 }
