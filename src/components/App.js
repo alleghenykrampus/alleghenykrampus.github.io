@@ -4,8 +4,9 @@ import { Switch, Route } from 'react-router-dom';
 import PageNotFound from './PageNotFound';
 import { AdventureHandler } from './Adventure';
 import Navbar from './Navbar';
+import Sidebar from './Sidebar';
 import Home from './Home';
-import { Grid, Row } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 export default function App() {
   return (
@@ -13,11 +14,16 @@ export default function App() {
 		<Navbar />
 		<Grid>
 			<Row>
-     			<Switch>
-					<Route exact path="/" component={Home} />
-					<Route path="/game/:id" component={AdventureHandler}/>
-					<Route component={PageNotFound} />
-				</Switch>
+				<Col xs={12} md={10}>
+					<Switch>
+						<Route exact path="/" component={Home} />
+						<Route path="/game/:id" component={AdventureHandler}/>
+						<Route component={PageNotFound} />
+					</Switch>
+				</Col>
+				<Col xs={12} md={2}>
+					<Sidebar />
+				</Col>
 			</Row>
 		</Grid>
     </div>
