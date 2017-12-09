@@ -13,6 +13,7 @@ class ArticlePreview extends React.Component {
 
 	medium() {
 		let { article } = this.props;
+		console.log(article);
 		return (
 			<Col xs={12} sm={4}>
 				<Thumbnail bsClass="article-thumbnail" src="http://placeimg.com/270/150/any" alt="image">

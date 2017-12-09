@@ -81,7 +81,7 @@ export class AdventureHandler extends React.Component {
 	}
 
 	componentWillMount() {
-		let id = this.props.match.params.id;
+		let id = this.props.id;
 		fetch("../data/game/" + id + ".js")
 		.then(res => res.text())
 		.then((s) => {
