@@ -18,7 +18,10 @@ export default function App(props) {
 				<Col xs={12} md={10}>
 					<Switch>
 						<Route exact path="/" render={() => <Home entries={props.entries}/>} />
-						<Route path="/game/:slug" component={(s) => routeContent(s.match.params.slug, AdventureHandler)} />
+						<Route path="/:cat/:slug" component={(s) => {
+							let {slug, cat} = s.match.params;
+							return routeContent(slug, cat);
+						}} />
 						<Route component={PageNotFound} />
 					</Switch>
 				</Col>
@@ -41,10 +44,23 @@ function matchSlug(slug) {
 	return false;
 }
 
-function routeContent(slug, next) {
+function routeContent(slug, cat) {
+	/* resolve /category/slug/ urls*/
 	let id = matchSlug(slug);
-	if (id) {
-		return React.createElement(next, {id: id});
+	if (!id) {
+		return <PageNotFound />
 	}
-	return <PageNotFound />;
+	let next = chooseHandler(cat);
+
+	return React.createElement(next, {id: id});
+}
+
+function chooseHandler(cat) {
+	/* match a category name with appropriate handler */
+	switch(cat) {
+		case "game":
+			return AdventureHandler;
+		default:
+			return PageNotFound;
+	}
 }
