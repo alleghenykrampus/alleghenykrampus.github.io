@@ -12,13 +12,16 @@ class ArticlePreview extends React.Component {
 	}
 
 	medium() {
-		let { article } = this.props;
+		let { article, trending } = this.props;
 		console.log(article);
 		return (
 			<Col xs={12} sm={4}>
 				<Thumbnail bsClass="article-thumbnail" src="http://placeimg.com/270/150/any" alt="image">
 					<Link to={ article.url }>
-						<h4>{ article.title }</h4>
+						<h4>
+							{ trending ? <span className="badge-trending">{trending}</span> : "" }
+							{ article.title }
+						</h4>
 					</Link>
 					{ this.tags() }
 				</Thumbnail>
@@ -39,6 +42,7 @@ class ArticlePreview extends React.Component {
 					<Link to={ article.url }>
 						<h2>{ article.title }</h2>
 					</Link>
+					<p>{ article.description }</p>
 					{ this.tags() }
 				</Panel>
 				</div>

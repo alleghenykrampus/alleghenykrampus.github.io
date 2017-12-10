@@ -19,16 +19,17 @@ class Home extends React.Component {
 	render() {
 		let { standard, featured } = this.state;
 		console.log(this.state);
+		// TODO: manually choose trending articles
 		return (
 			<div>
 			{featured.map((e, i) => (
 				<ArticlePreview article={e} key={i} size={"feature"}/>		
 			))}
 			<Col xs={12}>
-				<h2 style={{textAlign:"center"}}>New & Hot <span className="glyphicon glyphicon-fire" style={{color: "#ff861e"}}/></h2>
+				<h2 style={{textAlign:"center"}}>New & Trending <span className="glyphicon glyphicon-fire" style={{color: "#ff861e"}}/></h2>
 			</Col>
 			{standard.map((e, i) => (
-				<ArticlePreview article={e} key={i}/>
+				<ArticlePreview article={e} key={i} trending={i + 1}/>
 			))}
 			</div>
 		);

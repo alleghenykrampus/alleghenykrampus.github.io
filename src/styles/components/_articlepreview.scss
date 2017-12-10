@@ -1,4 +1,5 @@
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/labels";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/badges";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/panels";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/thumbnails";
 
@@ -80,4 +81,10 @@
 
 .tag-game {
 	@include tag(lighten($brand-info, 5%), #fff);
+}
+
+.badge-trending {
+	@extend .badge;
+	background: $brand-primary;
+	margin-right: 5px;
 }
