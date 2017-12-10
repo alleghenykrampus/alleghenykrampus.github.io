@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { format, parse, isToday, isYesterday, isSameYear } from 'date-fns';
 import { Col, Thumbnail, Label, Panel, Row } from 'react-bootstrap';
 
 class ArticlePreview extends React.Component {
@@ -8,7 +9,25 @@ class ArticlePreview extends React.Component {
 		this.medium = this.medium.bind(this);
 		this.feature = this.feature.bind(this);
 		this.tags = this.tags.bind(this);
+		this.date = this.date.bind(this);
+		this.meta = this.meta.bind(this);
 		this.state = {size: {"medium": this.medium, "feature": this.feature}, redirect: false};
+	}
+
+	meta(opts) {
+		/* metadata for article, e.g. date and tags */
+		let { article } = this.props;
+		// use defaults if no options given
+		opts = Object.assign({
+			tags: true,
+			date: true,
+		}, opts);
+		return (
+			<div className="article-meta">
+				<span className="article-tags">{ opts.tags ? this.tags() : "" }</span>
+				<span className="article-date">{ opts.date ? this.date() : "" }</span>
+			</div>		
+		);
 	}
 
 	medium() {
@@ -23,7 +42,7 @@ class ArticlePreview extends React.Component {
 							{ article.title }
 						</h4>
 					</Link>
-					{ this.tags() }
+					{ this.meta() }
 				</Thumbnail>
 			</Col>
 		);
@@ -43,7 +62,7 @@ class ArticlePreview extends React.Component {
 						<h2>{ article.title }</h2>
 					</Link>
 					<p>{ article.description }</p>
-					{ this.tags() }
+					{ this.meta() }
 				</Panel>
 				</div>
 			</Row>
@@ -69,6 +88,21 @@ class ArticlePreview extends React.Component {
 		let size = this.props.size || "medium";
 		let renderSize = this.state.size[size];
 		return (<div onClick={() => this.setState({redirect: true})}>{ renderSize() }</div>);
+	}
+
+	date() {
+		let d = this.props.article.date;
+		if (!d) {
+			return "";
+		}
+		d = parse(d);
+		if (isToday(d)) {
+			return "Today";
+		} else if (isYesterday(d)) {
+			return "Yesterday";
+		}
+		let formatString = "MMMM D" + (isSameYear(d, new Date()) ? ", YYYY" : "");
+		return format(d, formatString);
 	}
 }
 

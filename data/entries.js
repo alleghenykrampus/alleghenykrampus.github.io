@@ -11,6 +11,7 @@ export const entries = {
 			type: "game",
 			description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor urna non libero pellentesque convallis.",
 			tags: ["game"],
+			date: "2017-12-10",
 		},
 	],
 	standard: [
@@ -20,6 +21,7 @@ export const entries = {
 			type: "game",
 			description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor urna non libero pellentesque convallis.",
 			tags: ["game"],
+			date: "2017-12-9",
 		},
 		{
 			title: "Murder Mystery",
@@ -27,6 +29,7 @@ export const entries = {
 			type: "game",
 			description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor urna non libero pellentesque convallis.",
 			tags: ["game"],
+			date: "2017-12-8",
 		},
 		{
 			title: "Murder Mystery",
