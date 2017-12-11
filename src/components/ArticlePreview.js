@@ -11,6 +11,7 @@ class ArticlePreview extends React.Component {
 		this.tags = this.tags.bind(this);
 		this.date = this.date.bind(this);
 		this.meta = this.meta.bind(this);
+		this.head = this.head.bind(this);
 		this.state = {size: {"medium": this.medium, "feature": this.feature}, redirect: false};
 	}
 
@@ -30,18 +31,35 @@ class ArticlePreview extends React.Component {
 		);
 	}
 
+	head(opts) {
+		/* main article info: title, description */
+		let { article } = this.props;
+		opts = Object.assign({
+	   		title: true,
+			titleElem: "h4",
+			description: true,
+			trending: false,
+		}, opts);
+		return (
+			<div className="article-head">
+				{ opts.title ? (
+					<Link to={ article.url }>
+						{ opts.trending ? <span className="badge-trending">{article.trending}</span> : "" }
+						{ React.createElement(opts.titleElem, null, article.title) }
+					</Link>
+					) : "" }
+				{ opts.description ? <p>{ article.description }</p> : "" }
+			</div>		
+		);
+	}
+
 	medium() {
 		let { article, trending } = this.props;
 		console.log(article);
 		return (
 			<Col xs={12} sm={4}>
 				<Thumbnail bsClass="article-thumbnail" src="http://placeimg.com/270/150/any" alt="image">
-					<Link to={ article.url }>
-						<h4>
-							{ trending ? <span className="badge-trending">{trending}</span> : "" }
-							{ article.title }
-						</h4>
-					</Link>
+					{ this.head() }
 					{ this.meta() }
 				</Thumbnail>
 			</Col>
