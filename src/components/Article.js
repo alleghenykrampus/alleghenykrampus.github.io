@@ -20,25 +20,27 @@ export class ArticleHandler extends React.Component {
 		this.state = {data: null};
 		this.parseData = this.parseData.bind(this);
 		this.parseMetaBlock = this.parseMetaBlock.bind(this);
+		this.child = Article;
 	}
 
 	parseMetaBlock(block) {
+		// rudimentary YAML parser for metadata
 		if (!block) {
 			return {};
 		}
 		let vars = {};
 		console.log(block);
 		block.forEach(ln => {
-			let [ key, val ] = ln.split(":");
-			vars[key] = val.trimLeft();
+			let i = ln.indexOf(":");
+			let key = ln.slice(0, i);
+			let val = ln.slice(i + 1).trimLeft();
+			vars[key] = val;
 		});
 		return vars;
 	}
 
 	parseData(data) {
 		let lines = data.split("\n");
-		// todo: generalize to arbitrarily many blocks 
-		// (e.g. for listicle entries with unique metadata)
 		if (lines[0] === "---") {
 			let end = 1 + lines.slice(1).indexOf("---");
 			if (end > 0) {
@@ -55,7 +57,7 @@ export class ArticleHandler extends React.Component {
 		if (!data) {
 			return <DataFetcher cat={'article'} id={this.props.id} ext="md" then={d => this.setState({data: d}) }/>
 		}
-		return <Article data={ this.parseData(data) }/>;
+		return React.createElement(this.child, {data: this.parseData(data)});
 	}
 }
 
