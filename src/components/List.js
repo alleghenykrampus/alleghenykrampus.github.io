@@ -26,7 +26,7 @@ class List extends React.Component {
 export class ListHandler extends ArticleHandler {
 	constructor(props) {
 		super(props);
-		this.child = List;
+		this.child = {component: List, cat: "list", ext: "md"};
 	}
 
 	parseData(data) {

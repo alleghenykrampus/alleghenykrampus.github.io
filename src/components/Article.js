@@ -20,7 +20,7 @@ export class ArticleHandler extends React.Component {
 		this.state = {data: null};
 		this.parseData = this.parseData.bind(this);
 		this.parseMetaBlock = this.parseMetaBlock.bind(this);
-		this.child = Article;
+		this.child = {component: Article, cat: "article", ext: "md"};
 	}
 
 	parseMetaBlock(block) {
@@ -55,9 +55,9 @@ export class ArticleHandler extends React.Component {
 	render() {
 		let { data } = this.state;
 		if (!data) {
-			return <DataFetcher cat={'article'} id={this.props.id} ext="md" then={d => this.setState({data: d}) }/>
+			return <DataFetcher cat={this.child.cat} id={this.props.id} ext={this.child.ext} then={d => this.setState({data: d}) }/>
 		}
-		return React.createElement(this.child, {data: this.parseData(data)});
+		return React.createElement(this.child.component, {data: this.parseData(data)});
 	}
 }
 
