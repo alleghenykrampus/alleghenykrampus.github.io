@@ -3,6 +3,8 @@ import Interactive from 'react-interactive';
 import { Switch, Route } from 'react-router-dom';
 import PageNotFound from './PageNotFound';
 import { AdventureHandler } from './Adventure';
+import { ArticleHandler } from './Article';
+import { ListHandler } from './List';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import Home from './Home';
@@ -60,6 +62,10 @@ function chooseHandler(cat) {
 	switch(cat) {
 		case "game":
 			return AdventureHandler;
+		case "article":
+			return ArticleHandler;
+		case "list":
+			return ListHandler;
 		default:
 			return PageNotFound;
 	}

@@ -59,7 +59,7 @@ class ArticlePreview extends React.Component {
 		return (
 			<Col xs={12} sm={4}>
 				<Thumbnail bsClass="article-thumbnail" src="http://placeimg.com/270/150/any" alt="image">
-					{ this.head() }
+					{ this.head({trending: true, description: false}) }
 					{ this.meta() }
 				</Thumbnail>
 			</Col>
